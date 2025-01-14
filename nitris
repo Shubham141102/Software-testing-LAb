@@ -1,0 +1,37 @@
+from selenium import webdriver
+from time import sleep;
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+url="https://eapplication.nitrkl.ac.in/nitris/"
+def getbrowser():
+    options=webdriver.ChromeOptions()
+    options.use_chromium=True;
+    return webdriver.Chrome(options=options);
+def login(username,password):
+    try:
+        browser=getbrowser()
+        print("Browser completed");
+        browser.get(url)
+        sleep(5)
+        userBox=browser.find_element(By.ID,"txtUserName")
+        userBox.send_keys(username)
+        passwordBox=browser.find_element(By.ID,"txtPassword")
+        passwordBox.send_keys(password)
+        browser.find_element(By.ID,"btnLogin").click()
+        sleep(5)
+        browser.find_element(By.ID,"Academic").click()
+        sleep(5)
+        browser.find_element(By.LINK_TEXT,"Examination").click()
+        sleep(5)
+        browser.find_element(By.LINK_TEXT,"Examination Results").click()
+        sleep(5)
+        browser.find_element(By.LINK_TEXT,"View Grade Card").click()
+        sleep(20)
+    except Exception as e:
+        print(f"An error occured:{e}")
+    finally:
+        browser.quit()
+username="224CS3011"
+password=""
+login(username,password)
